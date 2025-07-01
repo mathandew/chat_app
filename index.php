@@ -7,12 +7,14 @@ if (!isset($_SESSION['username'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Real-Time Chat App</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body class="bg-light">
 
   <div class="container mt-5">
@@ -26,8 +28,9 @@ if (!isset($_SESSION['username'])) {
         <div id="chat-box" class="border rounded p-3 mb-3"
           style="height: 300px; overflow-y: auto; background: #f8f9fa;"></div>
 
-        <form id="chat-form" class="d-flex">
-          <input type="text" id="message" class="form-control me-2" placeholder="Type a message..." required>
+        <form id="chat-form" class="d-flex" enctype="multipart/form-data">
+          <input type="text" id="message" class="form-control me-2" placeholder="Type a message...">
+          <input type="file" id="file" class="form-control me-2" style="max-width: 200px;">
           <button type="submit" class="btn btn-primary">Send</button>
         </form>
       </div>
@@ -39,4 +42,5 @@ if (!isset($_SESSION['username'])) {
   </script>
   <script src="js/app.js"></script>
 </body>
+
 </html>

@@ -18,20 +18,30 @@ chatBox.parentNode.insertBefore(typingIndicator, chatBox.nextSibling);
 form.addEventListener('submit', function (e) {
   e.preventDefault();
   const message = msgInput.value.trim();
-  if (message !== "") {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "messages.php", true);
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.onload = function () {
-      console.log("Send response:", this.responseText);
-      if (this.responseText.trim() === "OK") {
-        msgInput.value = "";
-        loadMessages();
-      }
-    };
-    xhr.send(`action=send&message=${encodeURIComponent(message)}`);
+  const fileInput = document.getElementById('file');
+  const file = fileInput.files[0];
+
+  const formData = new FormData();
+  formData.append('action', 'send');
+  formData.append('message', message);
+
+  if (file) {
+    formData.append('file', file);
   }
+
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "messages.php", true);
+  xhr.onload = function () {
+    console.log("Send response:", this.responseText);
+    if (this.responseText.trim() === "OK") {
+      msgInput.value = "";
+      fileInput.value = "";
+      loadMessages();
+    }
+  };
+  xhr.send(formData);
 });
+
 
 // Input typing event
 msgInput.addEventListener('input', function () {
