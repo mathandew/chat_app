@@ -1,30 +1,30 @@
 const chatBox = document.getElementById('chat-box');
 const form = document.getElementById('chat-form');
 const msgInput = document.getElementById('message');
+const fileInput = document.getElementById('file');
 const usernameColors = {};
 let lastMessageCount = 0;
 const newMsgSound = new Audio('https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg');
 const myUsername = username;
 let typingTimeout;
 
-// Typing indicator element
-const typingIndicator = document.createElement('div');
-typingIndicator.className = 'text-muted';
-typingIndicator.style.fontStyle = 'italic';
-typingIndicator.style.marginTop = '5px';
-chatBox.parentNode.insertBefore(typingIndicator, chatBox.nextSibling);
+// Typing indicator
+const typingIndicator = document.getElementById('typing-indicator');
 
 // Send message
 form.addEventListener('submit', function (e) {
   e.preventDefault();
+
   const message = msgInput.value.trim();
-  const fileInput = document.getElementById('file');
   const file = fileInput.files[0];
+
+  if (message === "" && !file) {
+    return;
+  }
 
   const formData = new FormData();
   formData.append('action', 'send');
   formData.append('message', message);
-
   if (file) {
     formData.append('file', file);
   }
@@ -42,8 +42,7 @@ form.addEventListener('submit', function (e) {
   xhr.send(formData);
 });
 
-
-// Input typing event
+// Handle typing
 msgInput.addEventListener('input', function () {
   if (typingTimeout) clearTimeout(typingTimeout);
   typingTimeout = setTimeout(() => {
@@ -51,7 +50,6 @@ msgInput.addEventListener('input', function () {
   }, 300);
 });
 
-// Send typing status
 function sendTyping() {
   const xhr = new XMLHttpRequest();
   xhr.open("POST", "typing.php", true);
@@ -99,10 +97,9 @@ function loadTypingStatus() {
   fetch('typing_status.json?_=' + new Date().getTime(), { cache: 'no-store' })
     .then(res => res.json())
     .then(data => {
-      console.log("Typing data:", data);  // Debug: see what you get
       if (data && data.username && data.username !== myUsername) {
         const now = Math.floor(Date.now() / 1000);
-        if (now - data.time < 3) {  // Allow a bit more time margin
+        if (now - data.time < 3) {
           typingIndicator.textContent = `${data.username} is typing...`;
           return;
         }
@@ -115,8 +112,6 @@ function loadTypingStatus() {
     });
 }
 
-
-// Assign random color
 function getColorForUser(name) {
   if (!usernameColors[name]) {
     usernameColors[name] = '#' + Math.floor(Math.random() * 16777215).toString(16);
@@ -124,6 +119,5 @@ function getColorForUser(name) {
   return usernameColors[name];
 }
 
-// Start interval
 setInterval(loadMessages, 1000);
 loadMessages();

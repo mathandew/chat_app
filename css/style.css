@@ -1,4 +1,45 @@
 #chat-box p {
-  margin: 0;
-  padding: 2px 0;
+  padding: 6px 10px;
+  border-radius: 15px;
+  margin-bottom: 6px;
+  max-width: 75%;
+  clear: both;
+}
+
+#chat-box p strong {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+#chat-box p img {
+  border-radius: 8px;
+  margin-top: 4px;
+}
+
+#chat-box p:nth-child(odd) {
+  background-color: #e9f7fe;
+  align-self: flex-start;
+}
+
+#chat-box p:nth-child(even) {
+  background-color: #f1f1f1;
+  align-self: flex-end;
+}
+
+#chat-box {
+  display: flex;
+  flex-direction: column;
+}
+
+#chat-form input[type="text"] {
+  min-width: 200px;
+}
+
+#chat-form input[type="file"] {
+  font-size: 0.9em;
+}
+
+#chat-form button {
+  min-width: 80px;
 }

@@ -7,40 +7,38 @@ if (!isset($_SESSION['username'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <title>Real-Time Chat App</title>
+  <title>💬 Real-Time Chat App</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body class="bg-light">
 
-  <div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h2>💬 Real-Time Chat</h2>
-      <a href="logout.php" class="btn btn-sm btn-outline-danger">Logout</a>
-    </div>
-
-    <div class="card">
-      <div class="card-body">
-        <div id="chat-box" class="border rounded p-3 mb-3"
-          style="height: 300px; overflow-y: auto; background: #f8f9fa;"></div>
-
-        <form id="chat-form" class="d-flex" enctype="multipart/form-data">
-          <input type="text" id="message" class="form-control me-2" placeholder="Type a message...">
-          <input type="file" id="file" class="form-control me-2" style="max-width: 200px;">
-          <button type="submit" class="btn btn-primary">Send</button>
-        </form>
-      </div>
-    </div>
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="fw-bold text-primary">💬 Chat App</h3>
+    <a href="logout.php" class="btn btn-sm btn-outline-danger">Logout</a>
   </div>
 
-  <script>
-    const username = <?php echo json_encode($_SESSION['username']); ?>;
-  </script>
-  <script src="js/app.js"></script>
-</body>
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div id="chat-box" class="border rounded p-3 mb-3 bg-white" style="height: 350px; overflow-y: auto;"></div>
 
+      <form id="chat-form" class="d-flex flex-wrap gap-2" enctype="multipart/form-data">
+        <input type="text" id="message" class="form-control flex-grow-1" placeholder="Type a message...">
+        <input type="file" id="file" class="form-control" style="max-width: 180px;">
+        <button type="submit" class="btn btn-primary">Send</button>
+      </form>
+
+      <div id="typing-indicator" class="text-muted mt-2 fst-italic" style="min-height: 1.5em;"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const username = <?php echo json_encode($_SESSION['username']); ?>;
+</script>
+<script src="js/app.js"></script>
+</body>
 </html>
