@@ -17,8 +17,8 @@ if (!isset($_SESSION['username'])) {
 
 <div class="container py-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <h3 class="fw-bold text-primary">💬 Chat App</h3>
-    <a href="logout.php" class="btn btn-sm btn-outline-danger">Logout</a>
+    <h3 class="fw-bold text-success">💬 Chat App</h3>
+    <a href="logout.php" class="btn btn-sm btn-outline-success">Logout</a>
   </div>
 
   <div class="card shadow-sm">
@@ -26,9 +26,9 @@ if (!isset($_SESSION['username'])) {
       <div id="chat-box" class="border rounded p-3 mb-3 bg-white" style="height: 350px; overflow-y: auto;"></div>
 
       <form id="chat-form" class="d-flex flex-wrap gap-2" enctype="multipart/form-data">
-        <input type="text" id="message" class="form-control flex-grow-1" placeholder="Type a message...">
+        <input type="text" id="message" class="form-control flex-grow-1 text-success" placeholder="Type a message...">
         <input type="file" id="file" class="form-control" style="max-width: 180px;">
-        <button type="submit" class="btn btn-primary">Send</button>
+        <button type="submit" class="btn btn-success">Send</button>
       </form>
 
       <div id="typing-indicator" class="text-muted mt-2 fst-italic" style="min-height: 1.5em;"></div>
